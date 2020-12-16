@@ -1,0 +1,28 @@
+version: "2.1"
+services:
+    nginx:
+        image: nginx
+        ports:
+            - "3000:80"
+        volumes: 
+            - C:\code\maccms10\maccms:/usr/share/nginx/html
+            - C:\Users\guanwan\Desktop\docker\macms\nginx\conf:/etc/nginx/conf.d
+            - C:\Users\guanwan\Desktop\docker\macms\nginx\logs:/var/log/nginx
+        networks:
+            - lnmp-network
+    php:
+        image: esfak47/maccms-php7.2:1
+        volumes:
+            - C:\code\maccms10\maccms:/www
+        networks:
+            - lnmp-network
+    mysql:
+        image: mysql:5.7
+        ports:
+            - "3306:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=123456
+        networks:
+            - lnmp-network
+networks: 
+    lnmp-network:
